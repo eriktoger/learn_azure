@@ -13,7 +13,7 @@ namespace HelloWorld.Controllers
         {
             _logger.LogInformation("a 'Hello world get' was requested");
 
-            return Ok("Hello, World!");
+            return Ok("Hello, World! (from Backend)");
         }
     }
 }
