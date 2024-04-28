@@ -1,11 +1,5 @@
-
-
 function App() {
-
-  return (
-    
-      <p>Hello Frontend!</p>
-  )
+  return <p>Hello, Frontend!</p>;
 }
 
-export default App
+export default App;
