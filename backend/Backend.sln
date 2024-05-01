@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{A2756C6C-5B6C-45F3-9A8F-3402DDF71E4C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDatabase", "AzureDatabase\AzureDatabase.csproj", "{A161D663-E2E4-433C-A42C-F29A8DB91773}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{89633847-829B-4373-846F-07993BA26811}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{A2756C6C-5B6C-45F3-9A8F-3402DDF71E4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2756C6C-5B6C-45F3-9A8F-3402DDF71E4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2756C6C-5B6C-45F3-9A8F-3402DDF71E4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A161D663-E2E4-433C-A42C-F29A8DB91773}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A161D663-E2E4-433C-A42C-F29A8DB91773}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A161D663-E2E4-433C-A42C-F29A8DB91773}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A161D663-E2E4-433C-A42C-F29A8DB91773}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89633847-829B-4373-846F-07993BA26811}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89633847-829B-4373-846F-07993BA26811}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89633847-829B-4373-846F-07993BA26811}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89633847-829B-4373-846F-07993BA26811}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

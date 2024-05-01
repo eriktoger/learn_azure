@@ -1,5 +1,5 @@
 namespace Cors;
-using Services;
+using Common.Services;
 
 public static class Cors
 {
