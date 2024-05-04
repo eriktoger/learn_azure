@@ -7,8 +7,10 @@ The goal of this repo is to hold the code for various Azure resources.
 - And to production it is handle under Environments variable in azure.
     - PRIMARY_CONNECTION_STRING : connection string to azure
     - STATISTIC_ID :  The Id to my statistic object in the database
+    - APPLICATIONINSIGHTS_CONNECTION_STRING : connection string to azure application insights
 - Frontend are locally added to .env and for Production they needs to be added to [Settings in github](https://github.com/eriktoger/learn_azure/settings/environments).
     - VITE_BACKEND_URL: The url to the backend
+    - VITE_APPLICATIONINSIGHTS_INSTRUMENTATIONKEY : instrumentation key to azure application insights
 
 # Currently:
 - [Backend / WebApi](https://etogerbackend.azurewebsites.net): A app service written in .net

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { setupAppInsights } from "./setupAppInsights";
 
 function App() {
   const [fromBackend, setFromBackend] = useState("Loading...");
   const [fromDatabase, setFromDatabase] = useState("Nothing from DB");
   const url = import.meta.env.VITE_BACKEND_URL;
+  const appInsights = setupAppInsights();
 
   useEffect(() => {
     if (!url) {
@@ -30,6 +32,10 @@ function App() {
   }, [url]);
 
   const onClick = async () => {
+    appInsights.trackEvent({
+      name: "GetCounter",
+      properties: { message: "Frontend is requesting counter from backend" },
+    });
     try {
       const response = await fetch(`${url}/counter`, {
         mode: "cors",

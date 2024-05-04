@@ -8,6 +8,7 @@ on:
       - frontend/**
 env:
   VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL }}
+  VITE_APPLICATIONINSIGHTS_INSTRUMENTATIONKEY: ${{ vars.VITE_APPLICATIONINSIGHTS_INSTRUMENTATIONKEY }}
 
 jobs:
   build_and_deploy_job:

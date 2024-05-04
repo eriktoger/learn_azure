@@ -11,6 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IConfigurationService, ConfigurationService>();
 builder.Services.AddScoped<IStatisticService, StatisticService>();
 
+builder.Services.AddApplicationInsightsTelemetry();
+
 var app = builder.Build();
 
 app.UseCors("Cors");
