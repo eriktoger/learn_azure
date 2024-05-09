@@ -4,6 +4,7 @@ import { setupAppInsights } from "./setupAppInsights";
 function App() {
   const [fromBackend, setFromBackend] = useState("Loading...");
   const [fromDatabase, setFromDatabase] = useState("Nothing from DB");
+  const [fromDocker, setFromDocker] = useState("Nothing from docker");
   const url = import.meta.env.VITE_BACKEND_URL;
   const appInsights = setupAppInsights();
 
@@ -31,7 +32,7 @@ function App() {
       });
   }, [url]);
 
-  const onClick = async () => {
+  const onCounterClick = async () => {
     appInsights.trackEvent({
       name: "GetCounter",
       properties: { message: "Frontend is requesting counter from backend" },
@@ -51,12 +52,37 @@ function App() {
     }
   };
 
+  const onDockerClick = async () => {
+    appInsights.trackEvent({
+      name: "GetDocker",
+      properties: { message: "Frontend is requesting docker from backend" },
+    });
+    try {
+      const response = await fetch(`${url}/docker`, {
+        mode: "cors",
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+
+      const text = await response.text();
+
+      setFromDocker(text);
+    } catch (error) {
+      setFromDocker("Docker call failed...");
+    }
+  };
+
   return (
     <div>
       <p>Hello, World! (from Frontend)</p>
       <p>{fromBackend}</p>
-      <button onClick={onClick}>Click me to connect to database</button>
+      <button onClick={onCounterClick}>Click me to connect to database</button>
       <p>{fromDatabase}</p>
+
+      <button onClick={onDockerClick}>Click me to connect to docker</button>
+      <p>{fromDocker}</p>
     </div>
   );
 }

@@ -19,6 +19,13 @@ public class ConfigurationService(IConfiguration configuration) : IConfiguration
         return _configuration["STATISTIC_ID"] ?? "";
     }
 
+    public string getDockerUrl()
+    {
+        return _configuration["DOCKER_URL"] ?? "";
+    }
+
+
+
 }
 
 

@@ -12,7 +12,14 @@ The goal of this repo is to hold the code for various Azure resources.
     - VITE_BACKEND_URL: The url to the backend
     - VITE_APPLICATIONINSIGHTS_INSTRUMENTATIONKEY : instrumentation key to azure application insights
 
+
+# Push docker container
+ - docker login \<azure-registry>.azurecr.io
+ - docker tag hello-world \<azure-registry>.azurecr.io/simple-node
+ - docker push \<azure-registry>.azurecr.io/simple-node
+
 # Currently:
 - [Backend / WebApi](https://etogerbackend.azurewebsites.net): A app service written in .net
 - [Frontend](https://witty-wave-01133fe0f.5.azurestaticapps.net/): A static web app written in Typescript/React
 - Database: A Cosmos DB instance.
+- Docker

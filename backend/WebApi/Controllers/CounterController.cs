@@ -6,10 +6,10 @@ namespace Counter.Controllers
 {
     [ApiController]
     [Route("/counter")]
-    public class CounterController(ILogger<CounterController> logger, IConfigurationService configurationSerivce, IStatisticService statisticService) : Controller
+    public class CounterController(ILogger<CounterController> logger, IConfigurationService configurationService, IStatisticService statisticService) : Controller
     {
         private readonly ILogger<CounterController> _logger = logger;
-        private readonly IConfigurationService _configurationService = configurationSerivce;
+        private readonly IConfigurationService _configurationService = configurationService;
 
         [HttpGet(Name = "GetCounter")]
         public async Task<IActionResult> Get()
