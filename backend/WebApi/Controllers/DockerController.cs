@@ -7,12 +7,12 @@ namespace Docker.Controllers
 {
     [ApiController]
     [Route("/docker")]
-    public class DockerController(ILogger<DockerController> logger, TelemetryClient telemetryClient, IConfigurationService configurationSerivce) : Controller
+    public class DockerController(ILogger<DockerController> logger, TelemetryClient telemetryClient, IConfigurationService configurationService) : Controller
     {
         private readonly ILogger<DockerController> _logger = logger;
         private readonly TelemetryClient _telemetryClient = telemetryClient;
 
-        private readonly IConfigurationService _configurationService = configurationSerivce;
+        private readonly IConfigurationService _configurationService = configurationService;
 
         static readonly HttpClient client = new();
 
@@ -22,7 +22,7 @@ namespace Docker.Controllers
             _logger.LogInformation("a 'Docker get' was requested");
             _telemetryClient.TrackEvent("a 'Docker get' was requested (Application insights version)");
 
-            var dockerUrl = configurationSerivce.getDockerUrl();
+            var dockerUrl = _configurationService.getDockerUrl();
             HttpResponseMessage response = await client.GetAsync(dockerUrl);
             response.EnsureSuccessStatusCode();
 
