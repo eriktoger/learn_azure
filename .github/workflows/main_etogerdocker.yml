@@ -19,17 +19,17 @@ jobs:
           uses: actions/checkout@v3
         
         - name: Build Docker image
-          run: docker build -t simple-node .
+          run: docker build -t simple-node:${{ github.sha }} .
           working-directory: backend/DockerContainer
         
         - name: Docker login to Azure Container Registry
           run: docker login "${{ vars.CONTAINER_REGISTRY_USERNAME }}.azurecr.io" -u ${{ vars.CONTAINER_REGISTRY_USERNAME }} -p ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
         
         - name: Tag Docker image
-          run: docker tag simple-node "${{ vars.CONTAINER_REGISTRY_USERNAME }}.azurecr.io/simple-node:latest"
+          run: docker tag simple-node:${{ github.sha }} "${{ vars.CONTAINER_REGISTRY_USERNAME }}.azurecr.io/simple-node:${{ github.sha }}"
 
         - name: Push Docker image to ACR
-          run: docker push "${{ vars.CONTAINER_REGISTRY_USERNAME }}.azurecr.io/simple-node:latest"
+          run: docker push "${{ vars.CONTAINER_REGISTRY_USERNAME }}.azurecr.io/simple-node:${{ github.sha }}"
 
         - name: Login to Azure
           uses: azure/login@v1
@@ -38,15 +38,10 @@ jobs:
             tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_087E2D1E853045F08AA2D574FEC81A84 }}
             subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_871B01A6C08C4C9B81154EEEF1CABDC0 }}
 
-        - name: Update Azure Container App
-          run: |
-              az containerapp update \
-                --name ${{ vars.DOCKER_APP }} \
-                --resource-group ${{ vars.RESOURCE_GROUP }} \
-                --image ${{ vars.CONTAINER_REGISTRY_USERNAME }}.azurecr.io/simple-node:latest
-
-        - name: Restart docker
-          run: |
-              az containerapp restart \
-               --name ${{ vars.DOCKER_APP }} \
-               --resource-group ${{ vars.RESOURCE_GROUP }}
+        - name: Build and deploy Container App
+          uses: azure/container-apps-deploy-action@v1
+          with:
+            acrName: ${{ vars.CONTAINER_REGISTRY_USERNAME }}
+            containerAppName: ${{ vars.DOCKER_APP }}
+            resourceGroup: ${{ vars.RESOURCE_GROUP }}
+            imageToDeploy: ${{ vars.CONTAINER_REGISTRY_USERNAME }}.azurecr.io/simple-node:${{ github.sha }}
