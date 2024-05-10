@@ -12,6 +12,12 @@ The goal of this repo is to hold the code for various Azure resources.
     - VITE_BACKEND_URL: The url to the backend
     - VITE_APPLICATIONINSIGHTS_INSTRUMENTATIONKEY : instrumentation key to azure application insights
 
+# Build andRun docker locally (and shell into)
+ - cd backend/DockerContainer
+ - docker build -t simple-node .
+ - docker run  -p 80:8080 simple-node
+ - docker ps
+ - docker exec -it \<name that you got from last command> sh
 
 # Push docker container (no automated CI/CD)
  - docker login \<azure-registry>.azurecr.io

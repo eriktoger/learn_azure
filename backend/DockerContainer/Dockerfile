@@ -1,6 +1,7 @@
 FROM node:10-alpine
 
 ADD . /service
+WORKDIR /service
 
 RUN npm install
 

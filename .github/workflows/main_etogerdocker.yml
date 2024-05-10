@@ -12,6 +12,8 @@ jobs:
     build-and-push:
       runs-on: ubuntu-latest
       environment: production
+      permissions:
+        id-token: write #This is required for requesting the JWT
       steps:
         - name: Checkout repository
           uses: actions/checkout@v3
@@ -21,10 +23,24 @@ jobs:
           working-directory: backend/DockerContainer
         
         - name: Docker login to Azure Container Registry
-          run: docker login "${{ secrets.DOCKER_USERNAME }}.azurecr.io" -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          run: docker login "${{ vars.CONTAINER_REGISTRY_USERNAME }}.azurecr.io" -u ${{ vars.CONTAINER_REGISTRY_USERNAME }} -p ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
         
         - name: Tag Docker image
-          run: docker tag simple-node "${{ secrets.DOCKER_USERNAME }}.azurecr.io/simple-node:latest"
+          run: docker tag simple-node "${{ vars.CONTAINER_REGISTRY_USERNAME }}.azurecr.io/simple-node:latest"
 
         - name: Push Docker image to ACR
-          run: docker push "${{ secrets.DOCKER_USERNAME }}.azurecr.io/simple-node:latest"
+          run: docker push "${{ vars.CONTAINER_REGISTRY_USERNAME }}.azurecr.io/simple-node:latest"
+
+        - name: Login to Azure
+          uses: azure/login@v1
+          with:
+            client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6A9792A7EBF94592AEC82B5BC8078D0A }}
+            tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_087E2D1E853045F08AA2D574FEC81A84 }}
+            subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_871B01A6C08C4C9B81154EEEF1CABDC0 }}
+
+        - name: Update Azure Container App
+          run: |
+              az containerapp update \
+                --name ${{ vars.DOCKER_APP }} \
+                --resource-group ${{ vars.RESOURCE_GROUP }} \
+                --image ${{ vars.CONTAINER_REGISTRY_USERNAME }}.azurecr.io/simple-node:latest
