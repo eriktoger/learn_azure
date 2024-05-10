@@ -44,3 +44,9 @@ jobs:
                 --name ${{ vars.DOCKER_APP }} \
                 --resource-group ${{ vars.RESOURCE_GROUP }} \
                 --image ${{ vars.CONTAINER_REGISTRY_USERNAME }}.azurecr.io/simple-node:latest
+
+        - name: Restart docker
+          run: |
+              az containerapp restart \
+               --name ${{ vars.DOCKER_APP }} \
+               --resource-group ${{ vars.RESOURCE_GROUP }}
