@@ -15,8 +15,8 @@ The goal of this repo is to hold the code for various Azure resources.
 
 # Push docker container (no automated CI/CD)
  - docker login \<azure-registry>.azurecr.io
- - docker tag hello-world \<azure-registry>.azurecr.io/simple-node
- - docker push \<azure-registry>.azurecr.io/simple-node
+ - docker tag simple-node \<azure-registry>.azurecr.io/simple-node
+ - docker push \<azure-registry>.azurecr.io/simple-node:latest
 
 # Currently:
 - [Backend / WebApi](https://etogerbackend.azurewebsites.net): A app service written in .net
