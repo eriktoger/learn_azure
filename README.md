@@ -19,7 +19,7 @@ The goal of this repo is to hold the code for various Azure resources.
  - docker ps
  - docker exec -it \<name that you got from last command> sh
 
-# Push docker container (no automated CI/CD)
+# Push docker container locally
  - docker login \<azure-registry>.azurecr.io
  - docker tag simple-node \<azure-registry>.azurecr.io/simple-node
  - docker push \<azure-registry>.azurecr.io/simple-node:latest
