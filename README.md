@@ -8,6 +8,8 @@ The goal of this repo is to hold the code for various Azure resources.
     - PRIMARY_CONNECTION_STRING : connection string to azure
     - STATISTIC_ID :  The Id to my statistic object in the database
     - APPLICATIONINSIGHTS_CONNECTION_STRING : connection string to azure application insights
+    - FUNCTION_URL: The url to http trigger Azure function
+    - FUNCTION_CODE: Secret that lets backend call Azure function
 - Frontend are locally added to .env and for Production they needs to be added to [Settings in github](https://github.com/eriktoger/learn_azure/settings/environments).
     - VITE_BACKEND_URL: The url to the backend
     - VITE_APPLICATIONINSIGHTS_INSTRUMENTATIONKEY : instrumentation key to azure application insights
@@ -29,3 +31,4 @@ The goal of this repo is to hold the code for various Azure resources.
 - [Frontend](https://witty-wave-01133fe0f.5.azurestaticapps.net/): A static web app written in Typescript/React
 - Database: A Cosmos DB instance.
 - Docker: a simple node application in a container app / container registry (has been disabled/stopped for pricing reasons)
+- Function: Frontend calls WebApi that calls a http trigger Function
