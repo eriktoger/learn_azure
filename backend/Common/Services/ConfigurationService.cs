@@ -24,6 +24,16 @@ public class ConfigurationService(IConfiguration configuration) : IConfiguration
         return _configuration["DOCKER_URL"] ?? "";
     }
 
+    public string getFunctionUrl()
+    {
+        return _configuration["FUNCTION_URL"] ?? "";
+    }
+
+    public string getFunctionCode()
+    {
+        return _configuration["FUNCTION_CODE"] ?? "";
+    }
+
 
 
 }

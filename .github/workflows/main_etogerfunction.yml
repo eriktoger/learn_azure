@@ -54,5 +54,3 @@ jobs:
           app-name: 'etogerfunction'
           slot-name: 'production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/backend/AzureFunction/output'
-         
-          

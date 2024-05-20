@@ -5,6 +5,8 @@ function App() {
   const [fromBackend, setFromBackend] = useState("Loading...");
   const [fromDatabase, setFromDatabase] = useState("Nothing from DB");
   const [fromDocker, setFromDocker] = useState("Nothing from docker");
+  const [fromFunction, setFromFunction] = useState("Nothing from function");
+  const [name, setName] = useState("Erik");
   const url = import.meta.env.VITE_BACKEND_URL;
   const appInsights = setupAppInsights();
 
@@ -70,7 +72,30 @@ function App() {
 
       setFromDocker(text);
     } catch (error) {
-      setFromDocker("Docker call failed...");
+      setFromDocker("Docker has been shut down to save money");
+    }
+  };
+
+  const onFunctionClick = async () => {
+    appInsights.trackEvent({
+      name: "GetTriggerFunction",
+      properties: { message: "Frontend is requesting an azure function call" },
+    });
+
+    try {
+      const response = await fetch(`${url}/function?name=${name}`, {
+        mode: "cors",
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+
+      const text = await response.text();
+
+      setFromFunction(text);
+    } catch (error) {
+      setFromFunction("Function call failed...");
     }
   };
 
@@ -83,6 +108,13 @@ function App() {
 
       <button onClick={onDockerClick}>Click me to connect to docker</button>
       <p>{fromDocker}</p>
+
+      <input
+        value={name}
+        onChange={(event) => setName(event.currentTarget.value)}
+      />
+      <button onClick={onFunctionClick}>Click me to connect to function</button>
+      <p>{fromFunction}</p>
     </div>
   );
 }
