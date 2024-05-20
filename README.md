@@ -28,4 +28,4 @@ The goal of this repo is to hold the code for various Azure resources.
 - [Backend / WebApi](https://etogerbackend.azurewebsites.net): A app service written in .net
 - [Frontend](https://witty-wave-01133fe0f.5.azurestaticapps.net/): A static web app written in Typescript/React
 - Database: A Cosmos DB instance.
-- Docker: a simple node application in a container app / container registry
+- Docker: a simple node application in a container app / container registry (has been disabled/stopped for pricing reasons)
