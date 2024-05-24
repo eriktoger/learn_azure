@@ -1,7 +1,16 @@
-## Repo for exploring different Azure resources
+# Repo for exploring different Azure resources
 The goal of this repo is to hold the code for various Azure resources.
 
-# Environment variables:
+## Azure Certs taken
+- AZ-900
+
+## Azure Certs in progress
+- AZ-204
+
+## Azure Certs to come
+- AZ-400
+
+## Environment variables:
 - Non sensitive Backend variables are added to appsettings.Development.json and appsettings.Development.json.
 - Sensitive secrets are added locally via "dotnet user-secrets".
 - And to production it is handle under Environments variable in azure.
@@ -10,25 +19,28 @@ The goal of this repo is to hold the code for various Azure resources.
     - APPLICATIONINSIGHTS_CONNECTION_STRING : connection string to azure application insights
     - FUNCTION_URL: The url to http trigger Azure function
     - FUNCTION_CODE: Secret that lets backend call Azure function
+    - BLOB_SAS_TOKEN: token to connect to blob storage
+    - STORAGE_CONTAINER: the container wher the BLOB_SAS_TOKEN goes to.
 - Frontend are locally added to .env and for Production they needs to be added to [Settings in github](https://github.com/eriktoger/learn_azure/settings/environments).
     - VITE_BACKEND_URL: The url to the backend
     - VITE_APPLICATIONINSIGHTS_INSTRUMENTATIONKEY : instrumentation key to azure application insights
 
-# Build andRun docker locally (and shell into)
+## Build andRun docker locally (and shell into)
  - cd backend/DockerContainer
  - docker build -t simple-node .
  - docker run  -p 80:8080 simple-node
  - docker ps
  - docker exec -it \<name that you got from last command> sh
 
-# Push docker container locally
+## Push docker container locally
  - docker login \<azure-registry>.azurecr.io
  - docker tag simple-node \<azure-registry>.azurecr.io/simple-node
  - docker push \<azure-registry>.azurecr.io/simple-node:latest
 
-# Currently:
+## Currently:
 - [Backend / WebApi](https://etogerbackend.azurewebsites.net): A app service written in .net
 - [Frontend](https://witty-wave-01133fe0f.5.azurestaticapps.net/): A static web app written in Typescript/React
 - Database: A Cosmos DB instance.
 - Docker: a simple node application in a container app / container registry (has been disabled/stopped for pricing reasons)
 - Function: Frontend calls WebApi that calls a http trigger Function
+- Storage Account: a container for my cat images.
