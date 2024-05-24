@@ -4,7 +4,9 @@ public interface IConfigurationService
     public string GetAllowedOrigins();
     public string GetDatabaseConnectionString();
     public string GetStatisticId();
-    public string getDockerUrl();
-    public string getFunctionUrl();
-    public string getFunctionCode();
+    public string GetDockerUrl();
+    public string GetFunctionUrl();
+    public string GetFunctionCode();
+    public string GetBlobSaSToken();
+    public string GetStorageContainer();
 }

@@ -22,7 +22,7 @@ namespace Docker.Controllers
             _logger.LogInformation("a 'Docker get' was requested");
             _telemetryClient.TrackEvent("a 'Docker get' was requested (Application insights version)");
 
-            var dockerUrl = _configurationService.getDockerUrl();
+            var dockerUrl = _configurationService.GetDockerUrl();
             HttpResponseMessage response = await client.GetAsync(dockerUrl);
             response.EnsureSuccessStatusCode();
 

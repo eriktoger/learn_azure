@@ -19,19 +19,29 @@ public class ConfigurationService(IConfiguration configuration) : IConfiguration
         return _configuration["STATISTIC_ID"] ?? "";
     }
 
-    public string getDockerUrl()
+    public string GetDockerUrl()
     {
         return _configuration["DOCKER_URL"] ?? "";
     }
 
-    public string getFunctionUrl()
+    public string GetFunctionUrl()
     {
         return _configuration["FUNCTION_URL"] ?? "";
     }
 
-    public string getFunctionCode()
+    public string GetFunctionCode()
     {
         return _configuration["FUNCTION_CODE"] ?? "";
+    }
+
+    public string GetStorageContainer()
+    {
+        return _configuration["STORAGE_CONTAINER"] ?? "";
+    }
+
+    public string GetBlobSaSToken()
+    {
+        return _configuration["BLOB_SAS_TOKEN"] ?? "";
     }
 
 

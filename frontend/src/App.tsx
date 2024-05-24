@@ -115,6 +115,9 @@ function App() {
       />
       <button onClick={onFunctionClick}>Click me to connect to function</button>
       <p>{fromFunction}</p>
+
+      <p>Image from blob storage</p>
+      <p>{<img src={`${url}/file?filename=cats.jfif`} />}</p>
     </div>
   );
 }

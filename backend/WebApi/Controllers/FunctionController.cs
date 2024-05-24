@@ -10,7 +10,6 @@ namespace Function.Controllers
     {
         private readonly ILogger<FunctionController> _logger = logger;
         private readonly TelemetryClient _telemetryClient = telemetryClient;
-
         private readonly IConfigurationService _configurationService = configurationService;
         static readonly HttpClient client = new();
 
@@ -20,8 +19,8 @@ namespace Function.Controllers
             _logger.LogInformation("a 'Function get' was requested");
             _telemetryClient.TrackEvent("a 'Function get' was requested (Application insights version)");
 
-            var functionUrl = _configurationService.getFunctionUrl();
-            var functionCode = _configurationService.getFunctionCode();
+            var functionUrl = _configurationService.GetFunctionUrl();
+            var functionCode = _configurationService.GetFunctionCode();
 
             var url = $"{functionUrl}?name={name ?? "No-name"}&code={functionCode}";
             HttpResponseMessage response = await client.GetAsync(url);
