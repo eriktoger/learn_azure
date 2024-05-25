@@ -14,9 +14,9 @@ The goal of this repo is to hold the code for various Azure resources.
 - Non sensitive Backend variables are added to appsettings.Development.json and appsettings.Development.json.
 - Semi sensitive variables are added locally via "dotnet user-secrets".
 - And to production it is handle under Environments variable in azure.
-    - PRIMARY_CONNECTION_STRING : connection string to azure
-    - STATISTIC_ID :  The Id to my statistic object in the database
-    - APPLICATIONINSIGHTS_CONNECTION_STRING : connection string to azure application insights
+    - PRIMARY_CONNECTION_STRING: connection string to azure
+    - STATISTIC_ID:  The Id to my statistic object in the database
+    - APPLICATIONINSIGHTS_CONNECTION_STRING: connection string to azure application insights
     - FUNCTION_URL: The url to http trigger Azure function
     - FUNCTION_CODE: Secret that lets backend call Azure function
     - STORAGE_CONTAINER: the container wher the BLOB_SAS_TOKEN goes to.
@@ -47,3 +47,4 @@ The goal of this repo is to hold the code for various Azure resources.
 - Docker: a simple node application in a container app / container registry (has been disabled/stopped for pricing reasons)
 - Function: Frontend calls WebApi that calls a http trigger Function
 - Storage Account: a container for my cat images.
+- Key vault: Some secrets live in Azure key vault
