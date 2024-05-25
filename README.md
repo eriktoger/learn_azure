@@ -12,18 +12,21 @@ The goal of this repo is to hold the code for various Azure resources.
 
 ## Environment variables:
 - Non sensitive Backend variables are added to appsettings.Development.json and appsettings.Development.json.
-- Sensitive secrets are added locally via "dotnet user-secrets".
+- Semi sensitive variables are added locally via "dotnet user-secrets".
 - And to production it is handle under Environments variable in azure.
     - PRIMARY_CONNECTION_STRING : connection string to azure
     - STATISTIC_ID :  The Id to my statistic object in the database
     - APPLICATIONINSIGHTS_CONNECTION_STRING : connection string to azure application insights
     - FUNCTION_URL: The url to http trigger Azure function
     - FUNCTION_CODE: Secret that lets backend call Azure function
-    - BLOB_SAS_TOKEN: token to connect to blob storage
     - STORAGE_CONTAINER: the container wher the BLOB_SAS_TOKEN goes to.
 - Frontend are locally added to .env and for Production they needs to be added to [Settings in github](https://github.com/eriktoger/learn_azure/settings/environments).
     - VITE_BACKEND_URL: The url to the backend
     - VITE_APPLICATIONINSIGHTS_INSTRUMENTATIONKEY : instrumentation key to azure application insights
+
+## Secrets:
+- Secerets are added to the key vault, but locally via "dotnet user-secrets"
+    - BlobSasToken: token to connect to blob storage
 
 ## Build andRun docker locally (and shell into)
  - cd backend/DockerContainer

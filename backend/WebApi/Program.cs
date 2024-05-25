@@ -11,6 +11,13 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IConfigurationService, ConfigurationService>();
 builder.Services.AddScoped<IStatisticService, StatisticService>();
 
+if (builder.Environment.IsProduction())
+{
+    var keyVaultUrl = builder.Configuration["KEY_VAULT_URL"];
+    builder.Configuration.AddAzureKeyVault(keyVaultUrl);
+}
+
+
 builder.Services.AddApplicationInsightsTelemetry();
 
 var app = builder.Build();

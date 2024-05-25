@@ -39,9 +39,9 @@ public class ConfigurationService(IConfiguration configuration) : IConfiguration
         return _configuration["STORAGE_CONTAINER"] ?? "";
     }
 
-    public string GetBlobSaSToken()
+    public string GetSecretBlobSaSToken()
     {
-        return _configuration["BLOB_SAS_TOKEN"] ?? "";
+        return _configuration["BlobSasToken"] ?? "";
     }
 
 

@@ -7,6 +7,6 @@ public interface IConfigurationService
     public string GetDockerUrl();
     public string GetFunctionUrl();
     public string GetFunctionCode();
-    public string GetBlobSaSToken();
+    public string GetSecretBlobSaSToken();
     public string GetStorageContainer();
 }

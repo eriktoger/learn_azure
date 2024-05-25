@@ -19,7 +19,7 @@ namespace File.Controllers
             _logger.LogInformation("a 'File get' was requested");
             _telemetryClient.TrackEvent("a 'File get' was requested");
 
-            var blobSaSToken = _configurationService.GetBlobSaSToken();
+            var blobSaSToken = _configurationService.GetSecretBlobSaSToken();
             var storageContainer = _configurationService.GetStorageContainer();
 
             var url = $"{storageContainer}/{filename}?{blobSaSToken}";
