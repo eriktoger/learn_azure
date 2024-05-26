@@ -9,4 +9,5 @@ public interface IConfigurationService
     public string GetFunctionCode();
     public string GetSecretBlobSaSToken();
     public string GetStorageContainer();
+    public string GetSecretRedisConnectionString();
 }

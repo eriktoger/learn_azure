@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { setupAppInsights } from "./setupAppInsights";
 
 function App() {
@@ -6,9 +6,23 @@ function App() {
   const [fromDatabase, setFromDatabase] = useState("Nothing from DB");
   const [fromDocker, setFromDocker] = useState("Nothing from docker");
   const [fromFunction, setFromFunction] = useState("Nothing from function");
+  const [fromRedis, setFromRedis] = useState("Nothing from redis");
   const [name, setName] = useState("Erik");
   const url = import.meta.env.VITE_BACKEND_URL;
   const appInsights = setupAppInsights();
+
+  const backendFetch = useCallback(
+    async (urlSuffix: string) => {
+      return await fetch(`${url}/${urlSuffix}`, {
+        mode: "cors",
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    },
+    [url]
+  );
 
   useEffect(() => {
     if (!url) {
@@ -16,13 +30,7 @@ function App() {
       setFromBackend("No url found.");
       return;
     }
-    fetch(`${url}/helloworld`, {
-      mode: "cors",
-      method: "GET",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
+    backendFetch("helloWorld")
       .then((response) => {
         return response.text();
       })
@@ -32,7 +40,7 @@ function App() {
       .catch(() => {
         setFromBackend("Backend failed, refresh to try again.");
       });
-  }, [url]);
+  }, [backendFetch, url]);
 
   const onCounterClick = async () => {
     appInsights.trackEvent({
@@ -40,13 +48,7 @@ function App() {
       properties: { message: "Frontend is requesting counter from backend" },
     });
     try {
-      const response = await fetch(`${url}/counter`, {
-        mode: "cors",
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
+      const response = await backendFetch("counter");
       const text = await response.text();
       setFromDatabase(text);
     } catch (error) {
@@ -60,14 +62,7 @@ function App() {
       properties: { message: "Frontend is requesting docker from backend" },
     });
     try {
-      const response = await fetch(`${url}/docker`, {
-        mode: "cors",
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
-
+      const response = await backendFetch("docker");
       const text = await response.text();
 
       setFromDocker(text);
@@ -83,19 +78,29 @@ function App() {
     });
 
     try {
-      const response = await fetch(`${url}/function?name=${name}`, {
-        mode: "cors",
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
-
+      const response = await backendFetch(`function?name=${name}`);
       const text = await response.text();
 
       setFromFunction(text);
     } catch (error) {
       setFromFunction("Function call failed...");
+    }
+  };
+
+  const onRedisClick = async () => {
+    appInsights.trackEvent({
+      name: "GetRedis",
+      properties: { message: "Frontend is requesting an azure redis call" },
+    });
+
+    try {
+      const response = await backendFetch(`redis`);
+
+      const text = await response.text();
+
+      setFromRedis(text);
+    } catch (error) {
+      setFromRedis("Redis call failed...");
     }
   };
 
@@ -118,6 +123,9 @@ function App() {
 
       <p>Image from blob storage</p>
       <p>{<img src={`${url}/file?filename=cats.jfif`} />}</p>
+      <button onClick={onRedisClick}>Click me to connect to redis</button>
+      <p>The value is cached for 5 minutes</p>
+      <p>{fromRedis}</p>
     </div>
   );
 }

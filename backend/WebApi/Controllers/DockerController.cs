@@ -23,23 +23,31 @@ namespace Docker.Controllers
             _telemetryClient.TrackEvent("a 'Docker get' was requested (Application insights version)");
 
             var dockerUrl = _configurationService.GetDockerUrl();
-            HttpResponseMessage response = await client.GetAsync(dockerUrl);
-            response.EnsureSuccessStatusCode();
-
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            // Parse the JSON response
-            var jsonDoc = JsonDocument.Parse(responseBody);
-            JsonElement root = jsonDoc.RootElement;
-
-            // Extract the "message" field
-            if (root.TryGetProperty("message", out JsonElement messageElement))
+            try
             {
-                string message = messageElement.GetString() ?? "No message found";
-                return Ok(message);
+                HttpResponseMessage response = await client.GetAsync(dockerUrl);
+                response.EnsureSuccessStatusCode();
+
+                string responseBody = await response.Content.ReadAsStringAsync();
+
+                var jsonDoc = JsonDocument.Parse(responseBody);
+                JsonElement root = jsonDoc.RootElement;
+
+                if (root.TryGetProperty("message", out JsonElement messageElement))
+                {
+                    string message = messageElement.GetString() ?? "No message found";
+                    return Ok(message);
+                }
+
+                return Ok("No message found in docker");
+
+            }
+            catch
+            {
+
+                return Ok("Docker is currently down for pricing reasons");
             }
 
-            return Ok("No message found in docker");
         }
     }
 }

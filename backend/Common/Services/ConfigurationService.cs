@@ -43,9 +43,10 @@ public class ConfigurationService(IConfiguration configuration) : IConfiguration
     {
         return _configuration["BlobSasToken"] ?? "";
     }
-
-
-
+    public string GetSecretRedisConnectionString()
+    {
+        return _configuration["RedisConnectionString"] ?? "";
+    }
 }
 
 
