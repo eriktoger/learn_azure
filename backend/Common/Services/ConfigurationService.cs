@@ -38,6 +38,10 @@ public class ConfigurationService(IConfiguration configuration) : IConfiguration
     {
         return _configuration["STORAGE_CONTAINER"] ?? "";
     }
+    public string GetStorageQueueName()
+    {
+        return _configuration["STORAGE_QUEUE_NAME"] ?? "";
+    }
 
     public string GetSecretBlobSaSToken()
     {
@@ -46,6 +50,10 @@ public class ConfigurationService(IConfiguration configuration) : IConfiguration
     public string GetSecretRedisConnectionString()
     {
         return _configuration["RedisConnectionString"] ?? "";
+    }
+    public string GetSecretQueueConnectionString()
+    {
+        return _configuration["QueueConnectionString"] ?? "";
     }
 }
 

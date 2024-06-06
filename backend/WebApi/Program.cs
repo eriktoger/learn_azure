@@ -2,6 +2,7 @@ using AzureDatabase.Services;
 using Cors;
 using Common.Services;
 using Redis.Services;
+using Queue.Services;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.AddCorsPolicy();
 builder.Configuration.AddUserSecrets<Program>();
 builder.Services.AddControllers();
 builder.Services.AddScoped<IRedisService, RedisService>();
+builder.Services.AddScoped<IQueueService, QueueService>();
 builder.Services.AddScoped<IConfigurationService, ConfigurationService>();
 builder.Services.AddScoped<IStatisticService, StatisticService>();
 builder.Services.AddSwaggerGen(c =>

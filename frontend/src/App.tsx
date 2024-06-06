@@ -7,16 +7,34 @@ function App() {
   const [fromDocker, setFromDocker] = useState("Nothing from docker");
   const [fromFunction, setFromFunction] = useState("Nothing from function");
   const [fromRedis, setFromRedis] = useState("Nothing from redis");
+  const [fromQueue, setFromQueue] = useState("Nothing from queue");
   const [name, setName] = useState("Erik");
+  const [message, setMessage] = useState("Queue message");
   const url = import.meta.env.VITE_BACKEND_URL;
   const appInsights = setupAppInsights();
 
-  const backendFetch = useCallback(
+  const backendGet = useCallback(
     async (urlSuffix: string) => {
       return await fetch(`${url}/${urlSuffix}`, {
         mode: "cors",
         method: "GET",
+
         headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    },
+    [url]
+  );
+
+  const backendPost = useCallback(
+    async (urlSuffix: string, body: object) => {
+      return await fetch(`${url}/${urlSuffix}`, {
+        mode: "cors",
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
       });
@@ -30,7 +48,7 @@ function App() {
       setFromBackend("No url found.");
       return;
     }
-    backendFetch("helloWorld")
+    backendGet("helloWorld")
       .then((response) => {
         return response.text();
       })
@@ -40,7 +58,7 @@ function App() {
       .catch(() => {
         setFromBackend("Backend failed, refresh to try again.");
       });
-  }, [backendFetch, url]);
+  }, [backendGet, url]);
 
   const onCounterClick = async () => {
     appInsights.trackEvent({
@@ -48,7 +66,7 @@ function App() {
       properties: { message: "Frontend is requesting counter from backend" },
     });
     try {
-      const response = await backendFetch("counter");
+      const response = await backendGet("counter");
       const text = await response.text();
       setFromDatabase(text);
     } catch (error) {
@@ -62,7 +80,7 @@ function App() {
       properties: { message: "Frontend is requesting docker from backend" },
     });
     try {
-      const response = await backendFetch("docker");
+      const response = await backendGet("docker");
       const text = await response.text();
 
       setFromDocker(text);
@@ -78,7 +96,7 @@ function App() {
     });
 
     try {
-      const response = await backendFetch(`function?name=${name}`);
+      const response = await backendGet(`function?name=${name}`);
       const text = await response.text();
 
       setFromFunction(text);
@@ -94,13 +112,48 @@ function App() {
     });
 
     try {
-      const response = await backendFetch(`redis`);
+      const response = await backendGet(`redis`);
 
       const text = await response.text();
 
       setFromRedis(text);
     } catch (error) {
       setFromRedis("Redis call failed...");
+    }
+  };
+
+  const onQueueGet = async (peek: boolean) => {
+    appInsights.trackEvent({
+      name: "GetQueue",
+      properties: { message: "Frontend is requesting an azure queue call" },
+    });
+
+    try {
+      const response = await backendGet(peek ? "queue?peek=true" : "queue");
+
+      const text = await response.text();
+
+      setFromQueue(text);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.status === 404) {
+        setFromQueue("Queue is empty");
+      } else {
+        setFromQueue("Queue call failed...");
+      }
+    }
+  };
+
+  const onQueuePost = async () => {
+    appInsights.trackEvent({
+      name: "GetRedis",
+      properties: { message: "Frontend is requesting an azure redis call" },
+    });
+
+    try {
+      await backendPost(`queue`, { content: message });
+    } catch (error) {
+      console.warn(error);
     }
   };
 
@@ -126,6 +179,18 @@ function App() {
       <button onClick={onRedisClick}>Click me to connect to redis</button>
       <p>The value is cached for 5 minutes</p>
       <p>{fromRedis}</p>
+
+      <input
+        value={message}
+        onChange={(event) => setMessage(event.currentTarget.value)}
+        style={{ width: 150 }}
+      />
+      <div style={{ display: "flex", flexDirection: "column", width: 158 }}>
+        <button onClick={onQueuePost}>Send to queue</button>
+        <button onClick={() => onQueueGet(true)}>Peek</button>
+        <button onClick={() => onQueueGet(false)}>Consume</button>
+      </div>
+      <p>{fromQueue}</p>
     </div>
   );
 }

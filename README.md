@@ -19,7 +19,8 @@ The goal of this repo is to hold the code for various Azure resources.
     - APPLICATIONINSIGHTS_CONNECTION_STRING: connection string to azure application insights
     - FUNCTION_URL: The url to http trigger Azure function
     - FUNCTION_CODE: Secret that lets backend call Azure function
-    - STORAGE_CONTAINER: the container wher the BLOB_SAS_TOKEN goes to.
+    - STORAGE_CONTAINER: the container where the BLOB_SAS_TOKEN goes to.
+    - STORAGE_QUEUE_NAME: the queue where QueueConnectionString goes to.
 - Frontend are locally added to .env and for Production they needs to be added to [Settings in github](https://github.com/eriktoger/learn_azure/settings/environments).
     - VITE_BACKEND_URL: The url to the backend
     - VITE_APPLICATIONINSIGHTS_INSTRUMENTATIONKEY : instrumentation key to azure application insights
@@ -28,6 +29,7 @@ The goal of this repo is to hold the code for various Azure resources.
 - Secerets are added to the key vault, but locally via "dotnet user-secrets"
     - BlobSasToken: token to connect to blob storage
     - RedisConnectionString: connection string to redis
+    - QueueConnectionString: conection string to queue
 
 ## Build andRun docker locally (and shell into)
  - cd backend/DockerContainer
@@ -51,3 +53,4 @@ The goal of this repo is to hold the code for various Azure resources.
 - Storage Account: a container for my cat images
 - Key vault: Some secrets live in Azure key vault
 - Redis: A Redis cache.
+- Storage Queue: A simple queue where you can push, read and peek from.

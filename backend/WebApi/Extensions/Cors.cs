@@ -13,7 +13,7 @@ public static class Cors
             {
                 policy.WithOrigins(allowedOrigins ?? "")
                       .AllowAnyHeader()
-                      .WithMethods("GET", "OPTIONS")
+                      .WithMethods("GET", "POST", "OPTIONS")
                       .WithExposedHeaders("Access-Control-Allow-Origin");
             });
         });
