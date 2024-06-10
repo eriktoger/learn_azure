@@ -46,11 +46,12 @@ The goal of this repo is to hold the code for various Azure resources.
 ## Currently:
 - [Backend / WebApi](https://etogerbackend.azurewebsites.net): A app service written in .net
 - [Backend / Swagger](https://etogerbackend.azurewebsites.net/swagger/index.html): Swagger to the backend. There is also an Api Management in azure.
+- The Api Management has been disabled/stopped for pricing reasons.
 - [Frontend](https://witty-wave-01133fe0f.5.azurestaticapps.net/): A static web app written in Typescript/React
 - Database: A Cosmos DB instance
 - Docker: a simple node application in a container app / container registry (has been disabled/stopped for pricing reasons)
 - Function: Frontend calls WebApi that calls a http trigger Function
 - Storage Account: a container for my cat images
 - Key vault: Some secrets live in Azure key vault
-- Redis: A Redis cache.
+- Redis: A Redis cache (has been disabled/stopped for pricing reasons).
 - Storage Queue: A simple queue where you can push, read and peek from.
