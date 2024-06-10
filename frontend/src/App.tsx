@@ -118,7 +118,7 @@ function App() {
 
       setFromRedis(text);
     } catch (error) {
-      setFromRedis("Redis call failed...");
+      setFromRedis("Redis has been shut down to save money");
     }
   };
 
