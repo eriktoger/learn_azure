@@ -27,6 +27,15 @@ namespace Queue.Controllers
             return Ok(message);
         }
 
+        [HttpGet("length", Name = "GetQueueLength")]
+        public async Task<IActionResult> GetLength()
+        {
+            _logger.LogInformation("a 'Queue get length ' was requested");
+            _telemetryClient.TrackEvent("a 'Queue get length' was requested (Application insights version)");
+            var length = await _queueService.GetQueueLength();
+            return Ok(length);
+        }
+
         [HttpPost(Name = "PostQueue")]
         public IActionResult Post([FromBody] Message message)
         {

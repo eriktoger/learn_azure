@@ -8,6 +8,9 @@ function App() {
   const [fromFunction, setFromFunction] = useState("Nothing from function");
   const [fromRedis, setFromRedis] = useState("Nothing from redis");
   const [fromQueue, setFromQueue] = useState("Nothing from queue");
+  const [fromQueueLength, setFromQueueLength] = useState(
+    "Nothing from queue length"
+  );
   const [name, setName] = useState("Erik");
   const [message, setMessage] = useState("Queue message");
   const url = import.meta.env.VITE_BACKEND_URL;
@@ -157,6 +160,25 @@ function App() {
     }
   };
 
+  const onQueueLengthGet = async () => {
+    appInsights.trackEvent({
+      name: "GetQueue/queue-length",
+      properties: {
+        message: "Frontend is requesting an azure queue length call",
+      },
+    });
+
+    try {
+      const response = await backendGet("queue/length");
+
+      const text = await response.text();
+
+      setFromQueueLength(text);
+    } catch (error) {
+      setFromQueueLength("Queue length call failed...");
+    }
+  };
+
   return (
     <div>
       <p>Hello, World! (from Frontend)</p>
@@ -189,8 +211,10 @@ function App() {
         <button onClick={onQueuePost}>Send to queue</button>
         <button onClick={() => onQueueGet(true)}>Peek</button>
         <button onClick={() => onQueueGet(false)}>Consume</button>
+        <button onClick={onQueueLengthGet}>Queue Length</button>
       </div>
       <p>{fromQueue}</p>
+      <p>Queue Length: {fromQueueLength}</p>
     </div>
   );
 }

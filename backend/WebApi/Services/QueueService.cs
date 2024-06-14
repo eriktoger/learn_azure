@@ -56,7 +56,11 @@ public class QueueService : IQueueService
         await _queueClient.SendMessageAsync(EncodeBase64(message));
     }
 
-
+    public async Task<int> GetQueueLength()
+    {
+        var properties = await _queueClient.GetPropertiesAsync();
+        return properties.Value.ApproximateMessagesCount;
+    }
 
     public static string DecodeBase64(string base64EncodedData)
     {
