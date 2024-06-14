@@ -43,6 +43,9 @@ public class QueueService : IQueueService
             {
                 return null;
             }
+            var id = message.Value.MessageId;
+            var pop = message.Value.PopReceipt;
+            await _queueClient.DeleteMessageAsync(id, pop);
             return DecodeBase64(message.Value.Body.ToString());
 
         }
