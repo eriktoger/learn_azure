@@ -3,9 +3,10 @@ The goal of this repo is to hold the code for various Azure resources.
 
 ## Azure Certs taken
 - AZ-900
+- AZ-204
 
 ## Azure Certs in progress
-- AZ-204
+- Non at the moment
 
 ## Azure Certs to come
 - AZ-400
