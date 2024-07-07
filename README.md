@@ -6,10 +6,10 @@ The goal of this repo is to hold the code for various Azure resources.
 - AZ-204
 
 ## Azure Certs in progress
-- Non at the moment
+- AZ-400
 
 ## Azure Certs to come
-- AZ-400
+- ???
 
 ## Environment variables:
 - Non sensitive Backend variables are added to appsettings.Development.json and appsettings.Development.json.
@@ -31,6 +31,13 @@ The goal of this repo is to hold the code for various Azure resources.
     - BlobSasToken: token to connect to blob storage
     - RedisConnectionString: connection string to redis
     - QueueConnectionString: conection string to queue
+
+## Repository secrets
+- These secrets live under  "Secrets and variables"/Actions. And they are added automatically when I connected the my github repo to a Azure service.
+    - AZUREAPPSERVICE_CLIENTID_<:id>
+    - AZUREAPPSERVICE_SUBSCRIPTIONID_<:id>
+    - AZUREAPPSERVICE_TENANTID_<:id>
+    - AZURE_STATIC_WEB_APPS_API_TOKEN_<:page-name>
 
 ## Build andRun docker locally (and shell into)
  - cd backend/DockerContainer
