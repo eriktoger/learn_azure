@@ -2,11 +2,12 @@
 The goal of this repo is to hold the code for various Azure resources.
 
 ## Azure Certs taken
-- AZ-900
-- AZ-204
+- AZ-900 (April 19, 2024)
+- AZ-204 (June 30, 2024)
+- AZ-400 (August 5, 2024)
 
 ## Azure Certs in progress
-- AZ-400
+- ???
 
 ## Azure Certs to come
 - ???
