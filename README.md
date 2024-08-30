@@ -26,6 +26,8 @@ The goal of this repo is to hold the code for various Azure resources.
 - Frontend are locally added to .env and for Production they needs to be added to [Settings in github](https://github.com/eriktoger/learn_azure/settings/environments).
     - VITE_BACKEND_URL: The url to the backend
     - VITE_APPLICATIONINSIGHTS_INSTRUMENTATIONKEY : instrumentation key to azure application insights
+    - VITE_MSAL_CLIENT_ID: Application (client) ID for the app in App registrations
+    - VITE_MSAL_AUTHORITY: Directory (tenant) ID for the app in App registrations
 
 ## Secrets:
 - Secerets are added to the key vault, but locally via "dotnet user-secrets"

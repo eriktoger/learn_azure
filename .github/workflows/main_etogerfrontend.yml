@@ -9,6 +9,8 @@ on:
 env:
   VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL }}
   VITE_APPLICATIONINSIGHTS_INSTRUMENTATIONKEY: ${{ vars.VITE_APPLICATIONINSIGHTS_INSTRUMENTATIONKEY }}
+  VITE_MSAL_CLIENT_ID: ${{ vars.VITE_MSAL_CLIENT_ID }}
+  VITE_MSAL_AUTHORITY: ${{ vars.VITE_MSAL_AUTHORITY}}
 
 jobs:
   build_and_deploy_job:
@@ -29,4 +31,4 @@ jobs:
           action: "upload"
           app_location: "/frontend" # App source code path
           output_location: "dist" # Built app content directory - optional
-       
+

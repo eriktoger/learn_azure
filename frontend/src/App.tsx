@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { setupAppInsights } from "./setupAppInsights";
+import { useMsal } from "@azure/msal-react";
 
 function App() {
   const [fromBackend, setFromBackend] = useState("Loading...");
@@ -15,6 +16,7 @@ function App() {
   const [message, setMessage] = useState("Queue message");
   const url = import.meta.env.VITE_BACKEND_URL;
   const appInsights = setupAppInsights();
+  const { instance } = useMsal();
 
   const backendGet = useCallback(
     async (urlSuffix: string) => {
@@ -179,8 +181,18 @@ function App() {
     }
   };
 
+  const connectToMsal = () => {
+    const loginRequest = {
+      scopes: ["User.Read"],
+    };
+    instance.loginPopup(loginRequest).catch((e) => {
+      console.error(e);
+    });
+  };
+
   return (
     <div>
+      <button onClick={connectToMsal}>Connect to Msal</button>
       <p>Hello, World! (from Frontend)</p>
       <p>{fromBackend}</p>
       <button onClick={onCounterClick}>Click me to connect to database</button>
